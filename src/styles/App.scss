@@ -15,6 +15,15 @@ body {
 	position: relative;
 }
 
+.banner {
+	width: 100%;
+	height: 100vh;
+}
+
+.banner__block {
+	padding: 5rem 0 2rem;
+}
+
 .btn {
 	outline: none;
 	border: none;
@@ -51,233 +60,119 @@ body {
 	font-weight: 600;
 	border-radius: 3rem;
 	transition: all 0.3s;
+	cursor: pointer;
 
 	&:hover {
 		transform: scale(1.05);
 	}
 }
 
-.banner {
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-	align-items: center;
-	height: 100vh;
-}
-
-.banner--item {
-	margin: auto;
-}
-
-.coming-soon-banner {
-	flex: auto;
-	background: -moz-linear-gradient(
-		-45deg,
-		#5f5f5f 0%,
-		#292929 45%,
-		#000000 100%
-	);
-	background: -webkit-linear-gradient(
-		-45deg,
-		#5f5f5f 0%,
-		#292929 45%,
-		#000000 100%
-	);
-	background: linear-gradient(135deg, #5f5f5f 0%, #292929 45%, #000000 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5f5f5f', endColorstr='#000000',GradientType=1 );
-}
-.caesar-banner {
-	flex: auto;
-	background: -moz-linear-gradient(
-		-45deg,
-		#f9dede 0%,
-		#f9c0c0 45%,
-		#ffb5b5 100%
-	);
-	background: -webkit-linear-gradient(
-		-45deg,
-		#f9dede 0%,
-		#f9c0c0 45%,
-		#ffb5b5 100%
-	);
-	background: linear-gradient(135deg, #f9dede 0%, #f9c0c0 45%, #ffb5b5 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f9dede', endColorstr='#ffb5b5',GradientType=1 );
-}
-.word-counter-banner {
-	flex: auto;
-	background: -moz-linear-gradient(
-		-45deg,
-		#dee2f9 0%,
-		#c0caf9 45%,
-		#b5bcff 100%
-	);
-	background: -webkit-linear-gradient(
-		-45deg,
-		#dee2f9 0%,
-		#c0caf9 45%,
-		#b5bcff 100%
-	);
-	background: linear-gradient(135deg, #dee2f9 0%, #c0caf9 45%, #b5bcff 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#dee2f9', endColorstr='#b5bcff',GradientType=1 );
-}
-.banner-container {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-}
-.banner_title {
-	margin-bottom: 3rem;
-	text-align: center;
-}
-.banner-title__value {
-	font-size: 6rem;
-	color: white;
-	font-weight: bold;
-}
-.banner-description {
-	text-align: center;
-	max-width: 850px;
+.slider {
+	position: fixed;
+	bottom: 2rem;
 	width: 100%;
 }
-.banner-description__value {
+
+.slider-container {
+	display: flex;
+	justify-content: center;
+}
+
+.slider--item {
+	margin: 0 .5rem;
+	background-color: white;
+	border-radius: 3px;
+	overflow: hidden;
+	cursor: pointer;
+
+	&:hover .slider-description__block {
+		visibility: visible;
+    opacity: 1;
+	}
+
+	&:hover .slider-background {
+		transform: scale(1.2)
+	}
+}
+
+.slide-active {
+	border: 1px solid greenyellow;
+}
+
+.slider__block {
+	position: relative;
+	width: 200px;
+	height: 125px;
+}
+
+.slider-description__block {
+	visibility: hidden;
+  opacity: 0;
+	transition: visibility 0.2s linear, 
+							opacity 0.2s linear;
+	position: absolute;
+	top: 0;
+	right: 0;
+	left: 0;
+	background-color: rgba(0, 0, 0, .75);
+	box-shadow: 0px 14px 20px -8px rgba(0, 0, 0, .75);
+	padding: 1rem;
+	z-index: 2;
+	border-bottom-left-radius: 6px;
+	border-bottom-right-radius: 6px;
+}
+
+.slider-title {
 	font-size: 2rem;
 	color: white;
 	font-weight: 600;
 }
-.banner-slider {
-	padding-bottom: 2rem;
-}
-.banner-slider_container {
-	display: flex;
-	justify-content: center;
-}
-.slider--item__mask {
-	position: relative;
-	margin-right: 1rem;
-	width: 300px;
-	height: 175px;
-	overflow: hidden;
-	&:hover .slider--item-description {
-		display: block;
-	}
-	&:hover .banner-slider--item {
-		background-size: 110%;
-	}
-}
-.banner-slider--item {
-	width: 300px;
-	height: 175px;
-	background-color: white;
-}
-.slide-active {
-	border: 5px solid aquamarine;
-}
-.caesar-slider--item {
-	background-image: url(../assets/images/caesar-cipher.png);
-	background-repeat: no-repeat;
-	background-size: contain;
-	background-position: center;
-}
-.word-counter-slider--item {
-	background-image: url(../assets/images/word-counter.png);
-	background-repeat: no-repeat;
-	background-size: contain;
-	background-position: center;
-}
-.coming-slider--item {
-	background-image: url(../assets/images/coming-soon.png);
-	background-repeat: no-repeat;
-	background-size: contain;
-	background-position: center;
-}
-.slider--item-description {
-	transition: all 0.5s;
-	display: none;
+
+.slider-background {
+	position: absolute;
+	top: 0;
 	right: 0;
 	left: 0;
-	top: 0;
-	height: 125px;
-	background-color: rgba($color: #ff7f6e, $alpha: 0.85);
-	position: absolute;
-	padding: 1.5rem;
-}
-.slider-description_title {
-	margin-bottom: 1.5rem;
-}
-.slider-description_title__value {
-	font-size: 1.8rem;
-	color: white;
-	font-weight: 600;
-	letter-spacing: 0.27px;
-}
-.slider-description_description {
-	overflow: hidden;
-	height: 4.5rem;
-}
-.slider-description_description__value {
-	font-size: 1.5rem;
-	color: white;
-}
-.chat_block {
-	display: none;
-	z-index: 10;
-	position: fixed;
-	right: 0;
-	top: 0;
 	bottom: 0;
-	width: 320px;
-	flex-direction: column;
-	align-items: flex-end;
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-position: center;
+	transition: all 1s;
+	z-index: 0;
 }
-.chat-container {
-	height: calc(100vh - 115px);
-	background-color: white;
+
+.coming-soon__slider--item {
+	background-image: url(../assets/images/coming-soon.png);
 }
-.chat-btn {
-	margin-right: 2rem;
-	margin-bottom: 2rem;
-	width: 75px;
-	height: 75px;
-	border-radius: 50%;
-	background-color: darkcyan;
-	margin-top: 2rem;
+
+.caesar-cipher__slider--item {
+	background-image: url(../assets/images/caesar-cipher.png);
 }
-.chat-header {
-	width: 100%;
-	height: 3rem;
-	background-color: #dee2f9;
+
+.repeat-after-me__slider--item {
+ background-image: url(../assets/images/repeat-after-me.png);
 }
-.chat-content {
-	height: 100%;
-	width: 100%;
-	padding: 1.5rem;
+
+.word-counter__slider--item {
+	background-image: url(../assets/images/word-counter.png);
 }
-.chat-message_block {
-	height: 100%;
-	overflow: hidden;
-	overflow-y: auto;
-	&:nth-child(2n) {
-		background-color: #dee2f9;
-	}
+
+.home__banner {
+	background: linear-gradient(to right, #fc5c7d, #6a82fb); 
 }
-.chat--item {
-	display: flex;
-	padding: 0.8rem;
+
+.caesar-cipher__banner {
+	background: linear-gradient(to right, #333333, #dd1818);
 }
-.chat--item-photo__block {
-	margin-right: 1.5rem;
+
+.repeat-after-me__banner {
+	background: linear-gradient(to right, #c9d6ff, #e2e2e2); 
 }
-.chat-photo-img {
-	margin-top: 1rem;
-	width: 25px;
-	height: 25px;
-	border-radius: 50%;
-	background-color: red;
+
+.word-counter__banner {
+	background: linear-gradient(to right, #00f260, #0575e6);
 }
-.chat--item_message {
-	flex: auto;
-}
-.chat--item_message__value {
-	font-size: 1.5rem;
+
+.coming-soon__banner {
+	background: linear-gradient(to right, #3c3b3f, #605c3c);
 }
