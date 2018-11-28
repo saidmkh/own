@@ -1,9 +1,15 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 
 export default function SliderItem(props) {
+  console.log(props)
   return (
-    <Link to={`/${props.className}/`} className="slider--item" name={props.className}>
+    <NavLink
+      to={`/${props.className}/`}
+      className="slider--item"
+      activeClassName="slide-active"
+      name={props.className}
+    >
       <div className="slider__block">
         <div className="slider-description__block">
           <div className="slider-title_block">
@@ -12,6 +18,6 @@ export default function SliderItem(props) {
         </div>
         <div className={`slider-background ${props.className}__slider--item`} />
       </div>
-    </Link>
+    </NavLink>
   )
 }

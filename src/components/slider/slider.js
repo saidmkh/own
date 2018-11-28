@@ -10,16 +10,10 @@ export default class Slider extends Component {
     this.state = {
       slider_active: '',
     }
-
-    this.handleSlideClick = this.handleSlideClick.bind(this)
   }
 
   handleSlideClick(e) {
     console.log('dsadsa')
-    this.setState({
-      slider_active: this.name
-    })
-    console.log(this.state.slider_active)
   }
 
   render() {
@@ -31,12 +25,13 @@ export default class Slider extends Component {
               return (
                 <SliderItem
                   key={idx}
+                  idx={idx}
                   title={obj.title}
-                  className={obj.className === this.name ? `${obj.className} slide-active` : obj.className}
-                  onClick={this.handleSlideClick}
+                  className={obj.className}
                 />
               )
             })}
+            {this.props.children}
           </div>
         </div>
       </div>

@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import { Route, Switch } from 'react-router-dom'
 
+import SignInPopup from '../popups/sign_in'
+import SignUpPopup from '../popups/sign_up'
+
 import Header from '../header/header'
 import Slider from '../slider/slider'
 
@@ -14,6 +17,7 @@ export default class Main extends Component {
   render() {
     return (
       <div className="wrapper">
+        <SignInPopup />
         <Route component={Header} />
         <Route component={Slider} />
         <Switch>
