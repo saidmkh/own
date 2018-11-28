@@ -1,9 +1,25 @@
 import React, { Component } from 'react'
 
-export default class SignInPopup extends Component {
+import { handleInputChange, closePopupOnClickBackground } from '../../services/helpers/functions'
+
+class SignInPopup extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      login: '',
+      password: '',
+      errors: {}
+    }
+  }
+
+  closePopup(e) {
+    closePopupOnClickBackground('REGISTER', e)
+  }
+
   render() {
     return (
-      <div className="popup-background full-absolute">
+      <div className="popup-background full-absolute" onClick={this.closePopup.bind(this)}>
         <div className="popup">
           <div className="popup-container">
             <form className="popup__block">
@@ -51,3 +67,4 @@ export default class SignInPopup extends Component {
   }
 }
 
+export default SignInPopup

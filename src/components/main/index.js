@@ -13,21 +13,26 @@ import RepeatAfterMe from '../repeat_after_me/repeat_after_me'
 import WordCounter from '../word_counter/word_counter'
 import ComingSoon from '../coming_soon/coming_soon'
 
-export default class Main extends Component {
+class Main extends Component {
   render() {
     return (
-      <div className="wrapper">
+      <div className="app-wrapper">
         <SignInPopup />
-        <Route component={Header} />
-        <Route component={Slider} />
-        <Switch>
-          <Route exact path={'/'} component={HomePage} />
-          <Route exact path={'/caesar-cipher/'} component={CaesarCipher} />
-          <Route exact path={'/repeat-after-me/'} component={RepeatAfterMe} />
-          <Route exact path={'/word-counter/'} component={WordCounter} />
-          <Route exact path={'/coming-soon/'} component={ComingSoon} />
-        </Switch>
+        <SignUpPopup />
+        <div className="wrapper">
+          <Route component={Header} />
+          <Route component={Slider} />
+          <Switch>
+            <Route exact path={'/'} component={HomePage} />
+            <Route exact path={'/caesar-cipher/'} component={CaesarCipher} />
+            <Route exact path={'/repeat-after-me/'} component={RepeatAfterMe} />
+            <Route exact path={'/word-counter/'} component={WordCounter} />
+            <Route exact path={'/coming-soon/'} component={ComingSoon} />
+          </Switch>
+        </div>
       </div>
     )
   }
 }
+
+export default Main

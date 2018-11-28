@@ -1,14 +1,33 @@
 import React, { Component } from 'react'
 
+import { handleInputChange, closePopupOnClickBackground } from '../../services/helpers/functions'
+
 export default class SignUpPopup extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      email: '',
+      username: '',
+      password: '',
+      repeat_password: '',
+      errors: {}
+    }
+  }
+
+  closePopup(e) {
+    console.log('dsadsa')
+    closePopupOnClickBackground('REGISTER', e)
+  }
+
   render() {
     return (
-      <div className="popup-background full-absolute">
+      <div className="popup-background full-absolute" onClick={this.closePopup.bind(this)}>
         <div className="popup">
           <div className="popup-container">
             <form className="popup__block">
               <div className="popup-title_block">
-                <span className="popup-title_value">Sign-un</span>
+                <span className="popup-title_value">Sign-up</span>
               </div>
               <div className="popup-fields__block">
                 <div className="input-label_block">
@@ -17,7 +36,7 @@ export default class SignUpPopup extends Component {
                     type="email"
                     className="login-input"
                     required={true}
-                    placeholder="Enter email/username"
+                    placeholder="Enter email"
                     min='3'
                     value=""
                   />
@@ -28,7 +47,7 @@ export default class SignUpPopup extends Component {
                     type="text"
                     className="login-input"
                     required={true}
-                    placeholder="Enter email/username"
+                    placeholder="Enter username"
                     min='3'
                     value=""
                   />
@@ -41,6 +60,17 @@ export default class SignUpPopup extends Component {
                     required={true}
                     min='6'
                     placeholder="Enter password"
+                    value=""
+                  />
+                </div>
+                <div className="input-label_block">
+                  <label className="input-label">Repeat password</label>
+                  <input
+                    type="password"
+                    className="login-input"
+                    required={true}
+                    min='6'
+                    placeholder="Repeat password"
                     value=""
                   />
                 </div>
