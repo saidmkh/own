@@ -1,6 +1,20 @@
 import React, { Component } from 'react'
 
+import { handleInputChange, closePopupOnClickBackground } from '../../services/helpers/functions'
+
 export default class SignInPopup extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      verify_code: ''
+    }
+  }
+
+  closePopup(e) {
+    closePopupOnClickBackground('VERIFY', e)
+  }
+
   render() {
     return (
       <div className="popup-background full-absolute">
@@ -15,10 +29,11 @@ export default class SignInPopup extends Component {
                   <input
                     type="text"
                     className="login-input"
-                    required={true}
+                    required
                     placeholder="Verification code"
                     min='3'
-                    value=""
+                    value={this.state.verify_code}
+                    onChange={handleInputChange.bind(this)}
                   />
                 </div>
               </div>

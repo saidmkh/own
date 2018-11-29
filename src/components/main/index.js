@@ -17,7 +17,6 @@ class Main extends Component {
   render() {
     return (
       <div className="app-wrapper">
-        <SignInPopup />
         <SignUpPopup />
         <div className="wrapper">
           <Route component={Header} />

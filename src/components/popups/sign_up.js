@@ -16,11 +16,11 @@ export default class SignUpPopup extends Component {
   }
 
   closePopup(e) {
-    console.log('dsadsa')
     closePopupOnClickBackground('REGISTER', e)
   }
 
   render() {
+    const {email, username, password, repeat_password} = this.state
     return (
       <div className="popup-background full-absolute" onClick={this.closePopup.bind(this)}>
         <div className="popup">
@@ -34,44 +34,52 @@ export default class SignUpPopup extends Component {
                   <label className="input-label">Email</label>
                   <input
                     type="email"
+                    name="email"
                     className="login-input"
-                    required={true}
+                    required
                     placeholder="Enter email"
                     min='3'
-                    value=""
+                    value={email}
+                    onChange={handleInputChange.bind(this)}
                   />
                 </div>
                 <div className="input-label_block">
                   <label className="input-label">Username</label>
                   <input
                     type="text"
+                    name="username"
                     className="login-input"
-                    required={true}
+                    required
                     placeholder="Enter username"
                     min='3'
-                    value=""
+                    value={username}
+                    onChange={handleInputChange.bind(this)}
                   />
                 </div>
                 <div className="input-label_block">
                   <label className="input-label">Password</label>
                   <input
                     type="password"
+                    name="password"
                     className="login-input"
-                    required={true}
+                    required
                     min='6'
                     placeholder="Enter password"
-                    value=""
+                    value={password}
+                    onChange={handleInputChange.bind(this)}
                   />
                 </div>
                 <div className="input-label_block">
                   <label className="input-label">Repeat password</label>
                   <input
                     type="password"
+                    name="repeat_password"
                     className="login-input"
-                    required={true}
+                    required
                     min='6'
                     placeholder="Repeat password"
-                    value=""
+                    value={repeat_password}
+                    onChange={handleInputChange.bind(this)}
                   />
                 </div>
               </div>

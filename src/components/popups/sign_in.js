@@ -18,6 +18,7 @@ class SignInPopup extends Component {
   }
 
   render() {
+    const { login, password } = this.state
     return (
       <div className="popup-background full-absolute" onClick={this.closePopup.bind(this)}>
         <div className="popup">
@@ -31,22 +32,26 @@ class SignInPopup extends Component {
                   <label className="input-label">Username or email</label>
                   <input
                     type="text"
+                    name="login"
                     className="login-input"
-                    required={true}
+                    required
                     placeholder="Enter email/username"
                     min='3'
-                    value=""
+                    value={login}
+                    onChange={handleInputChange.bind(this)}
                   />
                 </div>
                 <div className="input-label_block">
                   <label className="input-label">Password</label>
                   <input
                     type="password"
+                    name="password"
                     className="login-input"
-                    required={true}
+                    required
                     min='6'
                     placeholder="Enter password"
-                    value=""
+                    value={password}
+                    onChange={handleInputChange.bind(this)}
                   />
                 </div>
               </div>

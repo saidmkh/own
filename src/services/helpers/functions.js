@@ -1,13 +1,12 @@
 import { popupToggleDispatch } from '../../store/actions/popup'
 
-export const handleInputChange = e => {
-  let obj = Object()
-
-  obj[e.target.name] = e.target.value
-  this.setState(obj)
+export function handleInputChange(e) {
+  return (
+    this.setState({ [e.target.name]: e.target.value })
+  )
 }
 
-export const closePopupOnClickBackground = (curr_popup, e) => {
+export function closePopupOnClickBackground(curr_popup, e) {
   console.log(curr_popup)
   if (e.target.className.split(' ')[0] === 'popup-background') {
     console.log('aaa')
