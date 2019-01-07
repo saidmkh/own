@@ -1,16 +1,18 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import { BrowserRouter } from 'react-router-dom'
 
-import Main from './components/main/index'
+import Main from './components/main/main'
 
 class App extends Component {
-	render() {
-		return (
-			<BrowserRouter>
-				<Main />
-			</BrowserRouter>
-		)
-	}
+  render() {
+    return (
+      <div className="app-wrapper">
+        <BrowserRouter>
+          <Main />
+        </BrowserRouter>
+      </div>
+    );
+  }
 }
 
-export default App
+export default App;

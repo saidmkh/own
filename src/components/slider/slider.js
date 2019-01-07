@@ -1,40 +1,42 @@
 import React, { Component } from 'react'
+import styled from 'styled-components'
+
+import { Container } from '../../styles/common_classes'
+import { slider_items } from './slider_maps'
 import SliderItem from './slider_item'
 
-import { slider_items } from './slider_maps'
+const SliderWrapper = styled.div`
+  position: fixed;
+  bottom: 2rem;
+  width: 100%;
+  z-index: 10;
+`
 
-export default class Slider extends Component {
-  constructor(props) {
-    super(props)
+const SliderContainer = styled.div`
+  display: flex;
+  justify-content: center;
+`
 
-    this.state = {
-      slider_active: '',
-    }
-  }
-
-  handleSlideClick(e) {
-    console.log('dsadsa')
-  }
-
+class Slider extends Component {
   render() {
     return (
-      <div className="slider">
-        <div className="container">
-          <div className="slider-container">
+      <SliderWrapper>
+        <Container>
+          <SliderContainer>
             {slider_items.map((obj, idx) => {
               return (
                 <SliderItem
                   key={idx}
-                  idx={idx}
-                  title={obj.title}
-                  className={obj.className}
+                  obj={obj}
                 />
               )
             })}
             {this.props.children}
-          </div>
-        </div>
-      </div>
+          </SliderContainer>
+        </Container>
+      </SliderWrapper>
     )
   }
 }
+
+export default Slider
