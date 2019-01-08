@@ -88,7 +88,6 @@ const SliderItemWrapper = styled(NavLink).attrs({
 `
 
 export default function SliderItem(props) {
-  console.log('d')
   return (
     <SliderItemWrapper
       to={`/${props.obj.nav}/`}
