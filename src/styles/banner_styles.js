@@ -4,9 +4,9 @@ import { BannerAnimation } from './keyframes'
 
 export const Banner = styled.div`
   height: 100vh;
-  background-size: 400% 400%;
-  animation: 25s ${BannerAnimation} linear infinite;
-  background: ${props =>
+  background-size: 300% 300%;
+  animation: 20s ${BannerAnimation} linear infinite;
+  background-image: ${props =>
     props.home ? 'linear-gradient(250deg, #08f6b9, #f608c8)' :
       props.caesar_cipher ? 'linear-gradient(250deg, #200122, #6f0000)' :
         props.movies ? 'linear-gradient(250deg, #abbaab, #ffffff)' :
