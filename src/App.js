@@ -6,11 +6,9 @@ import Main from './components/main/main'
 class App extends Component {
   render() {
     return (
-      <div className="app-wrapper">
-        <BrowserRouter>
-          <Main />
-        </BrowserRouter>
-      </div>
+      <BrowserRouter>
+        <Main />
+      </BrowserRouter>
     );
   }
 }

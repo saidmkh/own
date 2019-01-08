@@ -1,6 +1,11 @@
 import styled from 'styled-components'
 
 export const ModalBackground = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
   background-color: rgba(0, 0, 0, .4);
   display: flex;
   justify-content: center;
@@ -9,6 +14,7 @@ export const ModalBackground = styled.div`
 `
 
 export const ModalBlock = styled.div`
+  position: relative;
   max-width: 400px;
   width: 100%;
   background-color: white;
@@ -17,7 +23,7 @@ export const ModalBlock = styled.div`
 
 export const ModalContainer = styled.div`
   width: 100%;
-  padding: 2.5rem;
+  padding: 4rem;
 `
 
 export const ModalTitleBlock = styled.div`
@@ -34,6 +40,7 @@ export const ModalLoginNav = styled.div`
   margin-bottom: 2rem;
   display: flex;
   align-items: center;
+  justify-content: center;
 `
 
 export const ModalNavText = styled.div`
@@ -53,11 +60,21 @@ export const ModalButtonBlock = styled.div`
   justify-content: center;
 `
 
+export const ModalFieldsBlock = styled.div`
+  display: flex;
+  flex-direction: column;
+`
+
+export const ModalFooter = styled.div`
+  
+`
+
 export const ModalBtn = styled.button`
   padding: 1.2rem 5rem;
   background-color: lightskyblue;
   border: 1px solid lightskyblue;
   font-size: 1.6rem;
+  font-weight: bold;
   letter-spacing: 0.22px;
   text-transform: uppercase;
   color: white;
@@ -67,5 +84,30 @@ export const ModalBtn = styled.button`
   &:hover {
     background-color: white;
     color: lightskyblue;
+  }
+`
+export const ModalClose = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 40px;
+  height: 40px;
+  user-select: none;
+  cursor: pointer;
+
+  &:hover::after {
+    font-size: 3.2rem;
+  }
+
+  &:after {
+    content: '\00d7';
+    font-size: 2.8rem;
+    font-weight: 500;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin-top: -2px;
+    transition: all 0.2s ease;
   }
 `
