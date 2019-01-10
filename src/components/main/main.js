@@ -1,10 +1,13 @@
 import React, { Component } from 'react'
-import { Route, Switch } from 'react-router-dom'
+import { Route, Switch, withRouter } from 'react-router-dom'
+import { connect } from 'react-redux'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 
 import Header from '../header/header'
 import SignUpModal from '../modals/sign_up'
+import SignInModal from '../modals/sign_in'
+import VerifyModal from '../modals/verify_email'
 import Slider from '../slider/slider'
 import HomePage from '../pages/home/home'
 import MoviesPage from '../pages/new_movies/new_movies'
@@ -17,14 +20,31 @@ const Wrapper = styled.div`
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  ${props => props.blur ? 'filter: blur(3px)' : null}
 `
 
 class Main extends Component {
   render() {
+    const { signUpModal, signInModal, verifyModal } = this.props
+    let popupOpen = signUpModal || signInModal || verifyModal ? true : false
     return (
       <div className="app-wrapper">
-        <SignUpModal />
-        <Wrapper>
+        <SignInModal
+          signInModal={signInModal}
+          signUpModal={signUpModal}
+          verifyModal={verifyModal}
+        />
+        <SignUpModal
+          signInModal={signInModal}
+          signUpModal={signUpModal}
+          verifyModal={verifyModal}
+        />
+        <VerifyModal
+          signInModal={signInModal}
+          signUpModal={signUpModal}
+          verifyModal={verifyModal}
+        />
+        <Wrapper blur={popupOpen ? true : false}>
           <Route component={Header} />
           <section id="slider">
             <Route component={Slider} />
@@ -44,4 +64,10 @@ class Main extends Component {
   }
 }
 
-export default Main
+const mapStateToProps = store => ({
+  signUpModal: store.modal.signUpModal,
+  signInModal: store.modal.signInModal,
+  verifyModal: store.modal.verifyModal,
+})
+
+export default withRouter(connect(mapStateToProps)(Main))

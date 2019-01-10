@@ -25,45 +25,50 @@ import {
 
 class SignInModal extends Component {
   render() {
-    return (
-      <ModalBackground>
-        <ModalBlock>
-          <ModalClose />
-          <ModalContainer>
-            <ModalTitleBlock>
-              <ModalTitleText>Sign-in</ModalTitleText>
-            </ModalTitleBlock>
-            <form>
-              <ModalFieldsBlock>
-                <InputBlock>
-                  <InputField type='text' required />
-                  <InputBottomBar />
-                  <InputLabel>Username or Email</InputLabel>
-                </InputBlock>
-                <InputBlock>
-                  <InputField type='password' required />
-                  <InputBottomBar />
-                  <InputLabel>Password</InputLabel>
-                </InputBlock>
-              </ModalFieldsBlock>
-              <ModalFooter>
-                <ModalLoginNav>
-                  <ModalNavText>
-                    Don't have an account?
-                  </ModalNavText>
-                  <ModalNavLink>Register</ModalNavLink>
-                </ModalLoginNav>
-                <ModalButtonBlock>
-                  <ModalBtn type="submit">
-                    Done
-                  </ModalBtn>
-                </ModalButtonBlock>
-              </ModalFooter>
-            </form>
-          </ModalContainer>
-        </ModalBlock>
-      </ModalBackground>
-    )
+    if (this.props.signInModal === true &&
+      this.props.signInModal !== this.props.signUpModal &&
+      this.props.signInModal !== this.props.verifyModal) {
+      return (
+        <ModalBackground>
+          <ModalBlock>
+            <ModalClose />
+            <ModalContainer>
+              <ModalTitleBlock>
+                <ModalTitleText>Sign-in</ModalTitleText>
+              </ModalTitleBlock>
+              <form>
+                <ModalFieldsBlock>
+                  <InputBlock>
+                    <InputField type='text' required />
+                    <InputBottomBar />
+                    <InputLabel>Username or Email</InputLabel>
+                  </InputBlock>
+                  <InputBlock>
+                    <InputField type='password' required />
+                    <InputBottomBar />
+                    <InputLabel>Password</InputLabel>
+                  </InputBlock>
+                </ModalFieldsBlock>
+                <ModalFooter>
+                  <ModalLoginNav>
+                    <ModalNavText>
+                      Don't have an account?
+                    </ModalNavText>
+                    <ModalNavLink>Register</ModalNavLink>
+                  </ModalLoginNav>
+                  <ModalButtonBlock>
+                    <ModalBtn type="submit">
+                      Done
+                    </ModalBtn>
+                  </ModalButtonBlock>
+                </ModalFooter>
+              </form>
+            </ModalContainer>
+          </ModalBlock>
+        </ModalBackground>
+      )
+    }
+    return null
   }
 }
 
