@@ -7,7 +7,6 @@ const initialState = {
 }
 
 const modalReducer = (state = initialState, action) => {
-  console.log(action)
   switch (action.type) {
     case LOGIN_TOGGLE:
       return {

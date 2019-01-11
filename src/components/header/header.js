@@ -47,7 +47,7 @@ class Header extends Component {
           <HeaderBlock>
             <LoginBlock>
               <LoginButton
-                onClick={() => modalToggle(LOGIN_TOGGLE)}>
+                onClick={() => this.props.modalToggle(LOGIN_TOGGLE)}>
                 Login
               </LoginButton>
             </LoginBlock>
@@ -59,10 +59,10 @@ class Header extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  modalToggle: logToggle => dispatch(modalToggle(logToggle))
+  modalToggle: LogToggle => dispatch(modalToggle(LogToggle))
 })
 
-export default connect(mapDispatchToProps)(Header)
+export default connect(null, mapDispatchToProps)(Header)
 
 Header.propTypes = {
   modalToggle: PropTypes.func.isRequired

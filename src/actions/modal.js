@@ -1,6 +1,3 @@
-export const modalToggle = (action) => {
-  console.log(action)
-  return {
+export const modalToggle = (action) => ({
     type: action
-  }
-}
+})

@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import {connect} from 'react-redux'
 
 import {
   ModalBackground,
@@ -23,7 +24,30 @@ import {
   InputField,
 } from '../../styles/input_styles'
 
+import {LOGIN_TOGGLE} from '../../actions/types'
+import {modalToggle} from '../../actions/modal'
+
 class SignUpModal extends Component {
+  constructor(props) {
+    super(props)
+    this.initialState = {
+      email: '',
+      username: '',
+      password: '',
+      password_repeat: ''
+    }
+    this.state = { ...this.initialState }
+  }
+
+  resetState() {
+    this.setState({...this.initialState})
+  }
+
+  goToLogin() {
+    this.resetState()
+    this.props.modalToggle(LOGIN_TOGGLE)
+  }
+
   render() {
     if (this.props.signUpModal === true &&
       this.props.signUpModal !== this.props.signInModal &&
@@ -63,8 +87,10 @@ class SignUpModal extends Component {
                   <ModalLoginNav>
                     <ModalNavText>
                       Already have an account?
-                  </ModalNavText>
-                    <ModalNavLink>Login</ModalNavLink>
+                    </ModalNavText>
+                    <ModalNavLink
+                    onClick={() => this.goToLogin()}
+                    >Login</ModalNavLink>
                   </ModalLoginNav>
                   <ModalButtonBlock>
                     <ModalBtn type="submit">
@@ -82,4 +108,8 @@ class SignUpModal extends Component {
   }
 }
 
-export default SignUpModal
+const mapDispatchToProps = dispatch => ({
+  modalToggle: LogToggle => dispatch(modalToggle(LogToggle))
+})
+
+export default connect(null, mapDispatchToProps)(SignUpModal)
