@@ -1,7 +1,11 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import styled from 'styled-components'
+import PropTypes from 'prop-types'
 
 import { Container } from '../../styles/common_classes'
+import { LOGIN_TOGGLE } from '../../actions/types'
+import { modalToggle } from '../../actions/modal'
 
 const HeaderContainer = styled.header`
   position: absolute;
@@ -42,7 +46,10 @@ class Header extends Component {
         <Container>
           <HeaderBlock>
             <LoginBlock>
-              <LoginButton>Login</LoginButton>
+              <LoginButton
+                onClick={() => this.props.modalToggle(LOGIN_TOGGLE)}>
+                Login
+              </LoginButton>
             </LoginBlock>
           </HeaderBlock>
         </Container>
@@ -51,5 +58,13 @@ class Header extends Component {
   }
 }
 
-export default Header
+const mapDispatchToProps = dispatch => ({
+  modalToggle: LogToggle => dispatch(modalToggle(LogToggle))
+})
+
+export default connect(null, mapDispatchToProps)(Header)
+
+Header.propTypes = {
+  modalToggle: PropTypes.func.isRequired
+}
 
