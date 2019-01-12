@@ -20,7 +20,7 @@ const Wrapper = styled.div`
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  ${props => props.blur ? 'filter: blur(3px)' : null}
+  ${props => props.blur ? 'filter: blur(2px)' : null}
 `
 
 class Main extends Component {

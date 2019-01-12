@@ -11,6 +11,7 @@ export const ModalBackground = styled.div`
   justify-content: center;
   align-items: center;
   z-index: 100;
+  cursor: pointer;
 `
 
 export const ModalBlock = styled.div`
@@ -24,6 +25,7 @@ export const ModalBlock = styled.div`
 export const ModalContainer = styled.div`
   width: 100%;
   padding: 4rem;
+  cursor: default;
 `
 
 export const ModalTitleBlock = styled.div`

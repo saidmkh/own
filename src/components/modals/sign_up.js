@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 
 import {
   ModalBackground,
@@ -24,8 +24,9 @@ import {
   InputField,
 } from '../../styles/input_styles'
 
-import {LOGIN_TOGGLE} from '../../actions/types'
-import {modalToggle} from '../../actions/modal'
+import { LOGIN_TOGGLE, REGISTRATION_TOGGLE } from '../../actions/types'
+import { modalToggle } from '../../actions/modal'
+import { modalClickOnBackground } from '../../_helpers/functions'
 
 class SignUpModal extends Component {
   constructor(props) {
@@ -40,7 +41,7 @@ class SignUpModal extends Component {
   }
 
   resetState() {
-    this.setState({...this.initialState})
+    this.setState({ ...this.initialState })
   }
 
   goToLogin() {
@@ -48,14 +49,29 @@ class SignUpModal extends Component {
     this.props.modalToggle(LOGIN_TOGGLE)
   }
 
+  closeModal() {
+    this.resetState()
+    this.props.modalToggle(REGISTRATION_TOGGLE)
+  }
+
+  modalCloseOnBackground(e) {
+    if (modalClickOnBackground(e)) {
+      this.resetState()
+      this.props.modalToggle(REGISTRATION_TOGGLE)
+    }
+
+    return false
+  }
+
   render() {
-    if (this.props.signUpModal === true &&
-      this.props.signUpModal !== this.props.signInModal &&
-      this.props.signUpModal !== this.props.verifyModal) {
+    const { signUpModal, signInModal, verifyModal } = this.props
+    if (signUpModal === true &&
+      signUpModal !== signInModal &&
+      signUpModal !== verifyModal) {
       return (
-        <ModalBackground>
+        <ModalBackground onClick={this.modalCloseOnBackground.bind(this)}>
           <ModalBlock>
-            <ModalClose />
+            <ModalClose onClick={() => this.closeModal()} />
             <ModalContainer>
               <ModalTitleBlock>
                 <ModalTitleText>Sign-up</ModalTitleText>
@@ -89,7 +105,7 @@ class SignUpModal extends Component {
                       Already have an account?
                     </ModalNavText>
                     <ModalNavLink
-                    onClick={() => this.goToLogin()}
+                      onClick={() => this.goToLogin()}
                     >Login</ModalNavLink>
                   </ModalLoginNav>
                   <ModalButtonBlock>
@@ -109,7 +125,7 @@ class SignUpModal extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  modalToggle: LogToggle => dispatch(modalToggle(LogToggle))
+  modalToggle: toggle => dispatch(modalToggle(toggle))
 })
 
 export default connect(null, mapDispatchToProps)(SignUpModal)

@@ -24,8 +24,10 @@ import {
   InputField,
 } from '../../styles/input_styles'
 
+import { REGISTRATION_TOGGLE, LOGIN_TOGGLE } from '../../actions/types'
 import { modalToggle } from '../../actions/modal'
-import { REGISTRATION_TOGGLE } from '../../actions/types'
+import { modalClickOnBackground } from '../../_helpers/functions'
+
 
 class SignInModal extends Component {
   constructor(props) {
@@ -38,12 +40,26 @@ class SignInModal extends Component {
   }
 
   resetState() {
-    this.setState({...this.initialState})
+    this.setState({ ...this.initialState })
   }
 
   goToRegistration() {
     this.resetState()
     this.props.modalToggle(REGISTRATION_TOGGLE)
+  }
+
+  closeModal() {
+    this.resetState()
+    this.props.modalToggle(LOGIN_TOGGLE)
+  }
+
+  modalCloseOnBackground(e) {
+    if (modalClickOnBackground(e)) {
+      this.resetState()
+      this.props.modalToggle(LOGIN_TOGGLE)
+    }
+
+    return false
   }
 
   render() {
@@ -52,9 +68,9 @@ class SignInModal extends Component {
       signInModal !== signUpModal &&
       signInModal !== verifyModal) {
       return (
-        <ModalBackground>
+        <ModalBackground onClick={this.modalCloseOnBackground.bind(this)}>
           <ModalBlock>
-            <ModalClose />
+            <ModalClose onClick={() => this.closeModal()} />
             <ModalContainer>
               <ModalTitleBlock>
                 <ModalTitleText>Sign-in</ModalTitleText>

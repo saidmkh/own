@@ -23,15 +23,46 @@ import {
   InputField,
 } from '../../styles/input_styles'
 
+import { VERIFY_TOGGLE } from '../../actions/types'
+import { modalToggle } from '../../actions/modal'
+import { modalClickOnBackground } from '../../_helpers/functions'
+
 class VerifyEmailModal extends Component {
+  constructor(props) {
+    super(props)
+    this.initialState = {
+      verify_code: ''
+    }
+    this.state = { ...this.initialState }
+  }
+
+  resetState() {
+    this.setState({ ...this.initialState })
+  }
+
+  closeModal() {
+    this.resetState()
+    this.props.modalToggle(VERIFY_TOGGLE)
+  }
+
+  modalCloseOnBackground(e) {
+    if (modalClickOnBackground(e)) {
+      this.resetState()
+      this.props.modalToggle(VERIFY_TOGGLE)
+    }
+
+    return false
+  }
+
   render() {
-    if (this.props.verifyModal === true &&
-      this.props.verifyModal !== this.props.signInModal &&
-      this.props.verifyModal !== this.props.signUpModal) {
+    const { verifyModal, signUpModal, signInModal } = this.props
+    if (verifyModal === true &&
+      verifyModal !== signInModal &&
+      verifyModal !== signUpModal) {
       return (
-        <ModalBackground>
+        <ModalBackground onClick={this.modalCloseOnBackground.bind(this)}>
           <ModalBlock>
-            <ModalClose />
+            <ModalClose onClick={() => this.closeModal()} />
             <ModalContainer>
               <ModalTitleBlock>
                 <ModalTitleText>Verify your emal</ModalTitleText>
