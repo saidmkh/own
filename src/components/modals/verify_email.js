@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import {connect} from 'react-redux'
 
 import {
   ModalBackground,
@@ -8,9 +9,6 @@ import {
   ModalTitleText,
   ModalFieldsBlock,
   ModalFooter,
-  ModalLoginNav,
-  ModalNavText,
-  ModalNavLink,
   ModalButtonBlock,
   ModalBtn,
   ModalClose
@@ -92,4 +90,4 @@ class VerifyEmailModal extends Component {
   }
 }
 
-export default VerifyEmailModal
+export default connect(null, { modalToggle })(VerifyEmailModal)

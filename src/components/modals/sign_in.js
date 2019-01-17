@@ -114,8 +114,4 @@ class SignInModal extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  modalToggle: RegToggle => dispatch(modalToggle(RegToggle))
-})
-
-export default connect(null, mapDispatchToProps)(SignInModal)
+export default connect(null, { modalToggle })(SignInModal)

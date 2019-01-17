@@ -124,8 +124,4 @@ class SignUpModal extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  modalToggle: toggle => dispatch(modalToggle(toggle))
-})
-
-export default connect(null, mapDispatchToProps)(SignUpModal)
+export default connect(null, { modalToggle })(SignUpModal)
