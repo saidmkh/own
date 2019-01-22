@@ -11,6 +11,7 @@ export const ModalBackground = styled.div`
   justify-content: center;
   align-items: center;
   z-index: 100;
+  cursor: pointer;
 `
 
 export const ModalBlock = styled.div`
@@ -24,6 +25,7 @@ export const ModalBlock = styled.div`
 export const ModalContainer = styled.div`
   width: 100%;
   padding: 4rem;
+  cursor: default;
 `
 
 export const ModalTitleBlock = styled.div`
@@ -110,4 +112,12 @@ export const ModalClose = styled.div`
     margin-top: -2px;
     transition: all 0.2s ease;
   }
+`
+
+export const ModalErrorBlock = styled.div`
+  color: red;
+  padding: 7px 10px;  
+  margin-top: 10px;
+  font-size: 1.2rem;
+  background-color: #ff000029;
 `

@@ -39,6 +39,14 @@ const LoginButton = styled.button`
   }
 `
 
+const LoginAuthName = styled.div`
+  color: white;
+  font-size: 1.6rem;
+  text-decoration: underline;
+  font-weight: bold;
+  cursor: pointer;
+`
+
 class Header extends Component {
   render() {
     return (
@@ -46,10 +54,16 @@ class Header extends Component {
         <Container>
           <HeaderBlock>
             <LoginBlock>
-              <LoginButton
-                onClick={() => this.props.modalToggle(LOGIN_TOGGLE)}>
-                Login
-              </LoginButton>
+              {this.props.isLogged ?
+                <LoginAuthName>
+                  {this.props.user.username}
+                </LoginAuthName>
+                :
+                <LoginButton
+                  onClick={() => this.props.modalToggle(LOGIN_TOGGLE)}>
+                  Login
+                </LoginButton>
+              }
             </LoginBlock>
           </HeaderBlock>
         </Container>
@@ -58,11 +72,12 @@ class Header extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  modalToggle: LogToggle => dispatch(modalToggle(LogToggle))
+const mapStateToProps = store => ({
+  isLogged: store.auth.isLogged,
+  user: store.auth.user
 })
 
-export default connect(null, mapDispatchToProps)(Header)
+export default connect(mapStateToProps, { modalToggle })(Header)
 
 Header.propTypes = {
   modalToggle: PropTypes.func.isRequired

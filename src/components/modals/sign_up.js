@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 
 import {
   ModalBackground,
@@ -14,7 +14,8 @@ import {
   ModalNavLink,
   ModalButtonBlock,
   ModalBtn,
-  ModalClose
+  ModalClose,
+  ModalErrorBlock
 } from '../../styles/modal_styles'
 
 import {
@@ -24,8 +25,10 @@ import {
   InputField,
 } from '../../styles/input_styles'
 
-import {LOGIN_TOGGLE} from '../../actions/types'
-import {modalToggle} from '../../actions/modal'
+import { LOGIN_TOGGLE, REGISTRATION_TOGGLE } from '../../actions/types'
+import { modalToggle } from '../../actions/modal'
+import { signUpDispatch } from '../../actions/auth'
+import { changeStateValue, modalClickOnBackground } from '../../_helpers/functions'
 
 class SignUpModal extends Component {
   constructor(props) {
@@ -34,13 +37,16 @@ class SignUpModal extends Component {
       email: '',
       username: '',
       password: '',
-      password_repeat: ''
+      password_repeat: '',
+      errors: {}
     }
     this.state = { ...this.initialState }
+
+    this.formSubmit = this.formSubmit.bind(this)
   }
 
   resetState() {
-    this.setState({...this.initialState})
+    this.setState({ ...this.initialState })
   }
 
   goToLogin() {
@@ -48,37 +54,110 @@ class SignUpModal extends Component {
     this.props.modalToggle(LOGIN_TOGGLE)
   }
 
+  closeModal() {
+    this.resetState()
+    this.props.modalToggle(REGISTRATION_TOGGLE)
+  }
+
+  modalCloseOnBackground(e) {
+    if (modalClickOnBackground(e)) {
+      this.resetState()
+      this.props.modalToggle(REGISTRATION_TOGGLE)
+    }
+
+    return false
+  }
+
+  formSubmit(e) {
+    e.preventDefault()
+
+    const user = {
+      email: this.state.email,
+      username: this.state.username,
+      password: this.state.password,
+      password_repeat: this.state.password_repeat
+    }
+
+    this.props.signUpDispatch(user)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.errors) {
+      this.setState({
+        errors: nextProps.errors
+      })
+    }
+  }
+
   render() {
-    if (this.props.signUpModal === true &&
-      this.props.signUpModal !== this.props.signInModal &&
-      this.props.signUpModal !== this.props.verifyModal) {
+    const { email, username, password, password_repeat, errors } = this.state
+    const { signUpModal, signInModal, verifyModal } = this.props
+    if (signUpModal === true &&
+      signUpModal !== signInModal &&
+      signUpModal !== verifyModal) {
       return (
-        <ModalBackground>
+        <ModalBackground onClick={this.modalCloseOnBackground.bind(this)}>
           <ModalBlock>
-            <ModalClose />
+            <ModalClose onClick={() => this.closeModal()} />
             <ModalContainer>
               <ModalTitleBlock>
                 <ModalTitleText>Sign-up</ModalTitleText>
               </ModalTitleBlock>
-              <form>
+              <form onSubmit={this.formSubmit}>
                 <ModalFieldsBlock>
                   <InputBlock>
-                    <InputField type='text' required />
+                    <InputField
+                      type='text'
+                      name='email'
+                      value={email}
+                      onChange={changeStateValue.bind(this)}
+                      required
+                    />
+                    {errors.email && (
+                      <ModalErrorBlock>{errors.email}</ModalErrorBlock>
+                    )}
                     <InputBottomBar />
                     <InputLabel>Email</InputLabel>
                   </InputBlock>
                   <InputBlock>
-                    <InputField type='text' required />
+                    <InputField
+                      type='text'
+                      name='username'
+                      value={username}
+                      onChange={changeStateValue.bind(this)}
+                      required
+                    />
+                    {errors.username && (
+                      <ModalErrorBlock>{errors.username}</ModalErrorBlock>
+                    )}
                     <InputBottomBar />
                     <InputLabel>Username</InputLabel>
                   </InputBlock>
                   <InputBlock>
-                    <InputField type='password' required />
+                    <InputField
+                      type='password'
+                      name='password'
+                      value={password}
+                      onChange={changeStateValue.bind(this)}
+                      required
+                    />
+                    {errors.password && (
+                      <ModalErrorBlock>{errors.password}</ModalErrorBlock>
+                    )}
                     <InputBottomBar />
                     <InputLabel>Password</InputLabel>
                   </InputBlock>
                   <InputBlock>
-                    <InputField type='password' required />
+                    <InputField
+                      type='password'
+                      name='password_repeat'
+                      value={password_repeat}
+                      onChange={changeStateValue.bind(this)}
+                      required
+                    />
+                    {errors.password_repeat && (
+                      <ModalErrorBlock>{errors.password_repeat}</ModalErrorBlock>
+                    )}
                     <InputBottomBar />
                     <InputLabel>Repeat password</InputLabel>
                   </InputBlock>
@@ -89,7 +168,7 @@ class SignUpModal extends Component {
                       Already have an account?
                     </ModalNavText>
                     <ModalNavLink
-                    onClick={() => this.goToLogin()}
+                      onClick={() => this.goToLogin()}
                     >Login</ModalNavLink>
                   </ModalLoginNav>
                   <ModalButtonBlock>
@@ -108,8 +187,4 @@ class SignUpModal extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  modalToggle: LogToggle => dispatch(modalToggle(LogToggle))
-})
-
-export default connect(null, mapDispatchToProps)(SignUpModal)
+export default connect(null, { modalToggle, signUpDispatch })(SignUpModal)

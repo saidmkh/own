@@ -1,3 +1,5 @@
-export const modalToggle = (action) => ({
+export const modalToggle = (action) => dispatch => {
+  dispatch({
     type: action
-})
+  })
+}
