@@ -14,7 +14,8 @@ import {
   ModalNavLink,
   ModalButtonBlock,
   ModalBtn,
-  ModalClose
+  ModalClose,
+  ModalErrorBlock
 } from '../../styles/modal_styles'
 
 import {
@@ -26,17 +27,20 @@ import {
 
 import { REGISTRATION_TOGGLE, LOGIN_TOGGLE } from '../../actions/types'
 import { modalToggle } from '../../actions/modal'
-import { modalClickOnBackground } from '../../_helpers/functions'
-
+import { signInDispatch } from '../../actions/auth'
+import { changeStateValue, modalClickOnBackground } from '../../_helpers/functions'
 
 class SignInModal extends Component {
   constructor(props) {
     super(props)
     this.initialState = {
-      login: '',
+      email: '',
       password: '',
+      errors: {}
     }
     this.state = { ...this.initialState }
+
+    this.formSubmit = this.formSubmit.bind(this)
   }
 
   resetState() {
@@ -62,7 +66,27 @@ class SignInModal extends Component {
     return false
   }
 
+  formSubmit(e) {
+    e.preventDefault()
+
+    const user = {
+      email: this.state.email,
+      password: this.state.password
+    }
+
+    this.props.signInDispatch(user)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.errors) {
+      this.setState({
+        errors: nextProps.errors
+      })
+    }
+  }
+
   render() {
+    const { email, password, errors } = this.state
     const { signInModal, signUpModal, verifyModal } = this.props
     if (signInModal === true &&
       signInModal !== signUpModal &&
@@ -75,15 +99,33 @@ class SignInModal extends Component {
               <ModalTitleBlock>
                 <ModalTitleText>Sign-in</ModalTitleText>
               </ModalTitleBlock>
-              <form>
+              <form onSubmit={this.formSubmit}>
                 <ModalFieldsBlock>
                   <InputBlock>
-                    <InputField type='text' required />
+                    <InputField
+                      type='text'
+                      name='email'
+                      value={email}
+                      onChange={changeStateValue.bind(this)}
+                      required
+                    />
+                    {errors.email && (
+                      <ModalErrorBlock>{errors.email}</ModalErrorBlock>
+                    )}
                     <InputBottomBar />
-                    <InputLabel>Username or Email</InputLabel>
+                    <InputLabel>Email</InputLabel>
                   </InputBlock>
                   <InputBlock>
-                    <InputField type='password' required />
+                    <InputField
+                      type='password'
+                      name='password'
+                      value={password}
+                      onChange={changeStateValue.bind(this)}
+                      required
+                    />
+                    {errors.password && (
+                      <ModalErrorBlock>{errors.password}</ModalErrorBlock>
+                    )}
                     <InputBottomBar />
                     <InputLabel>Password</InputLabel>
                   </InputBlock>
@@ -114,4 +156,4 @@ class SignInModal extends Component {
   }
 }
 
-export default connect(null, { modalToggle })(SignInModal)
+export default connect(null, { modalToggle, signInDispatch })(SignInModal)

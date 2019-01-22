@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 
 import {
   ModalBackground,
@@ -23,7 +23,8 @@ import {
 
 import { VERIFY_TOGGLE } from '../../actions/types'
 import { modalToggle } from '../../actions/modal'
-import { modalClickOnBackground } from '../../_helpers/functions'
+import { verifyEmailDispatch } from '../../actions/auth'
+import { changeStateValue, modalClickOnBackground } from '../../_helpers/functions'
 
 class VerifyEmailModal extends Component {
   constructor(props) {
@@ -32,6 +33,8 @@ class VerifyEmailModal extends Component {
       verify_code: ''
     }
     this.state = { ...this.initialState }
+
+    this.formSubmit = this.formSubmit.bind(this)
   }
 
   resetState() {
@@ -52,7 +55,19 @@ class VerifyEmailModal extends Component {
     return false
   }
 
+  formSubmit(e) {
+    e.preventDefault()
+
+    const user = {
+      email: this.props.user.email,
+      verify_code: this.state.verify_code
+    }
+
+    this.props.verifyEmailDispatch(user)
+  }
+
   render() {
+    const { verify_code } = this.state
     const { verifyModal, signUpModal, signInModal } = this.props
     if (verifyModal === true &&
       verifyModal !== signInModal &&
@@ -65,10 +80,16 @@ class VerifyEmailModal extends Component {
               <ModalTitleBlock>
                 <ModalTitleText>Verify your emal</ModalTitleText>
               </ModalTitleBlock>
-              <form>
+              <form onSubmit={this.formSubmit}>
                 <ModalFieldsBlock>
                   <InputBlock>
-                    <InputField type='text' required />
+                    <InputField
+                      type='text'
+                      name='verify_code'
+                      value={verify_code}
+                      onChange={changeStateValue.bind(this)}
+                      required
+                    />
                     <InputBottomBar />
                     <InputLabel>Verify code</InputLabel>
                   </InputBlock>
@@ -90,4 +111,8 @@ class VerifyEmailModal extends Component {
   }
 }
 
-export default connect(null, { modalToggle })(VerifyEmailModal)
+const mapStateToProps = store => ({
+  user: store.auth.user
+})
+
+export default connect(mapStateToProps, { modalToggle, verifyEmailDispatch })(VerifyEmailModal)

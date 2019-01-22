@@ -113,3 +113,11 @@ export const ModalClose = styled.div`
     transition: all 0.2s ease;
   }
 `
+
+export const ModalErrorBlock = styled.div`
+  color: red;
+  padding: 7px 10px;  
+  margin-top: 10px;
+  font-size: 1.2rem;
+  background-color: #ff000029;
+`

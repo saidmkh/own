@@ -14,7 +14,8 @@ import {
   ModalNavLink,
   ModalButtonBlock,
   ModalBtn,
-  ModalClose
+  ModalClose,
+  ModalErrorBlock
 } from '../../styles/modal_styles'
 
 import {
@@ -26,7 +27,8 @@ import {
 
 import { LOGIN_TOGGLE, REGISTRATION_TOGGLE } from '../../actions/types'
 import { modalToggle } from '../../actions/modal'
-import { modalClickOnBackground } from '../../_helpers/functions'
+import { signUpDispatch } from '../../actions/auth'
+import { changeStateValue, modalClickOnBackground } from '../../_helpers/functions'
 
 class SignUpModal extends Component {
   constructor(props) {
@@ -35,9 +37,12 @@ class SignUpModal extends Component {
       email: '',
       username: '',
       password: '',
-      password_repeat: ''
+      password_repeat: '',
+      errors: {}
     }
     this.state = { ...this.initialState }
+
+    this.formSubmit = this.formSubmit.bind(this)
   }
 
   resetState() {
@@ -63,7 +68,29 @@ class SignUpModal extends Component {
     return false
   }
 
+  formSubmit(e) {
+    e.preventDefault()
+
+    const user = {
+      email: this.state.email,
+      username: this.state.username,
+      password: this.state.password,
+      password_repeat: this.state.password_repeat
+    }
+
+    this.props.signUpDispatch(user)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.errors) {
+      this.setState({
+        errors: nextProps.errors
+      })
+    }
+  }
+
   render() {
+    const { email, username, password, password_repeat, errors } = this.state
     const { signUpModal, signInModal, verifyModal } = this.props
     if (signUpModal === true &&
       signUpModal !== signInModal &&
@@ -76,25 +103,61 @@ class SignUpModal extends Component {
               <ModalTitleBlock>
                 <ModalTitleText>Sign-up</ModalTitleText>
               </ModalTitleBlock>
-              <form>
+              <form onSubmit={this.formSubmit}>
                 <ModalFieldsBlock>
                   <InputBlock>
-                    <InputField type='text' required />
+                    <InputField
+                      type='text'
+                      name='email'
+                      value={email}
+                      onChange={changeStateValue.bind(this)}
+                      required
+                    />
+                    {errors.email && (
+                      <ModalErrorBlock>{errors.email}</ModalErrorBlock>
+                    )}
                     <InputBottomBar />
                     <InputLabel>Email</InputLabel>
                   </InputBlock>
                   <InputBlock>
-                    <InputField type='text' required />
+                    <InputField
+                      type='text'
+                      name='username'
+                      value={username}
+                      onChange={changeStateValue.bind(this)}
+                      required
+                    />
+                    {errors.username && (
+                      <ModalErrorBlock>{errors.username}</ModalErrorBlock>
+                    )}
                     <InputBottomBar />
                     <InputLabel>Username</InputLabel>
                   </InputBlock>
                   <InputBlock>
-                    <InputField type='password' required />
+                    <InputField
+                      type='password'
+                      name='password'
+                      value={password}
+                      onChange={changeStateValue.bind(this)}
+                      required
+                    />
+                    {errors.password && (
+                      <ModalErrorBlock>{errors.password}</ModalErrorBlock>
+                    )}
                     <InputBottomBar />
                     <InputLabel>Password</InputLabel>
                   </InputBlock>
                   <InputBlock>
-                    <InputField type='password' required />
+                    <InputField
+                      type='password'
+                      name='password_repeat'
+                      value={password_repeat}
+                      onChange={changeStateValue.bind(this)}
+                      required
+                    />
+                    {errors.password_repeat && (
+                      <ModalErrorBlock>{errors.password_repeat}</ModalErrorBlock>
+                    )}
                     <InputBottomBar />
                     <InputLabel>Repeat password</InputLabel>
                   </InputBlock>
@@ -124,4 +187,4 @@ class SignUpModal extends Component {
   }
 }
 
-export default connect(null, { modalToggle })(SignUpModal)
+export default connect(null, { modalToggle, signUpDispatch })(SignUpModal)
